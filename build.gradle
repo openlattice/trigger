@@ -33,33 +33,33 @@ plugins {
     id 'com.github.jk1.dependency-license-report' version '1.11'
 }
 
-description = "Conductor Server"
+description = "Trigger"
 group = "com.openlattice"
 
 distTar {
-    archiveName "conductor.tgz"
+    archiveName "trigger.tgz"
 }
 
-ext.projectName = "conductor"
-ext.scmUrl = 'scm:git:https://github.com/openlattice/conductor.git'
-ext.connectionUrl = 'scm:git:https://github.com/openlattice/conductor.git'
-ext.developerConnectionUrl = 'scm:git:https://github.com/openlattice/conductor.git'
+ext.projectName = "trigger"
+ext.scmUrl = 'scm:git:https://github.com/openlattice/trigger.git'
+ext.connectionUrl = 'scm:git:https://github.com/openlattice/trigger.git'
+ext.developerConnectionUrl = 'scm:git:https://github.com/openlattice/trigger.git'
 
 apply from: "https://raw.githubusercontent.com/openlattice/gradles/master/openlattice.gradle"
 apply plugin: 'kotlin'
 
-def CONDUCTOR_XMS = "$System.env.CONDUCTOR_XMS"
-def CONDUCTOR_XMX = "$System.env.CONDUCTOR_XMX"
-def C_ARGS = "$System.env.CONDUCTOR_ARGS"
+def TRIGGER_XMS = "$System.env.TRIGGER_XMS"
+def TRIGGER_XMX = "$System.env.TRIGGER_XMX"
+def C_ARGS = "$System.env.TRIGGER_ARGS"
 def PARALLEL = "$System.env.PARALLELISM"
 def GC = "$System.env.GC"
 
-if (CONDUCTOR_XMS == 'null' || CONDUCTOR_XMS == null || CONDUCTOR_XMS == "") {
-    CONDUCTOR_XMS = '-Xms1g'
+if (TRIGGER_XMS == 'null' || TRIGGER_XMS == null || TRIGGER_XMS == "") {
+    TRIGGER_XMS = '-Xms1g'
 }
 
-if (CONDUCTOR_XMX == 'null' || CONDUCTOR_XMX == null || CONDUCTOR_XMX == "") {
-    CONDUCTOR_XMX = '-Xms4g'
+if (TRIGGER_XMX == 'null' || TRIGGER_XMX == null || TRIGGER_XMX == "") {
+    TRIGGER_XMX = '-Xms4g'
 }
 
 if (C_ARGS == 'null' || C_ARGS == null || C_ARGS == "") {
@@ -75,8 +75,8 @@ if (GC == 'null' || GC == null || GC == "") {
 }
 
 
-mainClassName = "com.openlattice.Conductor"
-applicationDefaultJvmArgs = [CONDUCTOR_XMS, CONDUCTOR_XMX, "-server", GC, PARALLEL]
+mainClassName = "com.openlattice.trigger.Trigger"
+applicationDefaultJvmArgs = [TRIGGER_XMS, TRIGGER_XMX, "-server", GC, PARALLEL]
 applicationDefaultJvmArgs += [ "--add-modules", "java.se",
                                "--add-exports","java.base/jdk.internal.ref=ALL-UNNAMED",
                                "--add-opens","java.base/java.lang=ALL-UNNAMED",
@@ -152,7 +152,6 @@ dependencies {
         logger.quiet(project.name + " using jar dependencies.")
         compile "com.openlattice:rhizome:${rhizome_version}"
         compile "com.openlattice:conductor-client:${conductor_client_version}"
-        compile "com.openlattice:scrunchie:${scrunchie_version}"
         compile "com.openlattice:courier:${courier_version}"
     }
     /*
